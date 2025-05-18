@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DodgeOfProjectiles/Characters/DOPAbilityCharacter.h"
+#include "DodgeOfProjectiles/Characters/DOPBaseCharacter.h"
 #include "Logging/LogMacros.h"
 #include "DodgeOfProjectilesCharacter.generated.h"
 
@@ -16,7 +16,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class ADodgeOfProjectilesCharacter : public ADOPAbilityCharacter
+class ADodgeOfProjectilesCharacter : public ADOPBaseCharacter
 {
 	GENERATED_BODY()
 
