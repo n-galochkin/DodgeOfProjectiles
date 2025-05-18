@@ -5,18 +5,18 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "UObject/Object.h"
-#include "DOPBaseCharacter.generated.h"
+#include "DPBaseCharacter.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ADOPBaseCharacter : public ACharacter
+class ADPBaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	ADOPBaseCharacter(const FObjectInitializer& ObjectInitializer);
+	ADPBaseCharacter(const FObjectInitializer& ObjectInitializer);
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;

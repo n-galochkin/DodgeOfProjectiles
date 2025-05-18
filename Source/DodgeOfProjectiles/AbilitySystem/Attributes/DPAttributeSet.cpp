@@ -1,12 +1,12 @@
 
-#include "DOPAttributeSet.h"
+#include "DPAttributeSet.h"
 
 #include "GameplayEffect.h"
 #include "Net/UnrealNetwork.h"
 #include "GameplayEffectExtension.h"
 #include "GameplayEffectTypes.h"
 
-UDOPAttributeSet::UDOPAttributeSet()
+UDPAttributeSet::UDPAttributeSet()
 	: Health(100.0f)
 	, MaxHealth(100.0f)
 {
@@ -15,15 +15,15 @@ UDOPAttributeSet::UDOPAttributeSet()
 	HealthBeforeAttributeChange = 0.0f;
 }
 
-void UDOPAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+void UDPAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME_CONDITION_NOTIFY(UDOPAttributeSet, Health, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UDOPAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDPAttributeSet, Health, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UDPAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 }
 
-void UDOPAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValue)
+void UDPAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {
 	//GAMEPLAYATTRIBUTE_REPNOTIFY(UDOPAttributeSet, Health, OldValue);
 
@@ -44,7 +44,7 @@ void UDOPAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 	bOutOfHealth = (CurrentHealth <= 0.0f);
 }
 
-void UDOPAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
+void UDPAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
 	//GAMEPLAYATTRIBUTE_REPNOTIFY(UDOPAttributeSet, MaxHealth, OldValue);
 
@@ -53,7 +53,7 @@ void UDOPAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 	//OnMaxHealthChanged.Broadcast(nullptr, nullptr, nullptr, GetMaxHealth() - OldValue.GetCurrentValue(), OldValue.GetCurrentValue(), GetMaxHealth());
 }
 
-bool UDOPAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData &Data)
+bool UDPAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData &Data)
 {
 	if (!Super::PreGameplayEffectExecute(Data))
 	{
@@ -67,7 +67,7 @@ bool UDOPAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData &
 	return true;
 }
 
-void UDOPAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+void UDPAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
 
@@ -109,21 +109,21 @@ void UDOPAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 	bOutOfHealth = (GetHealth() <= 0.0f);
 }
 
-void UDOPAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
+void UDPAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
 {
 	Super::PreAttributeBaseChange(Attribute, NewValue);
 
 	ClampAttribute(Attribute, NewValue);
 }
 
-void UDOPAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+void UDPAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	Super::PreAttributeChange(Attribute, NewValue);
 
 	ClampAttribute(Attribute, NewValue);
 }
 
-void UDOPAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
+void UDPAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
 	Super::PostAttributeChange(Attribute, OldValue, NewValue);
 
@@ -133,7 +133,7 @@ void UDOPAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, 
 	}
 }
 
-void UDOPAttributeSet::ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue) const
+void UDPAttributeSet::ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue) const
 {
 	if (Attribute == GetHealthAttribute())
 	{

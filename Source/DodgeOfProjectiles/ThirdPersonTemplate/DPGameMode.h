@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "DodgeOfProjectilesGameMode.generated.h"
+#include "DPGameMode.generated.h"
 
 UCLASS(minimalapi)
-class ADodgeOfProjectilesGameMode : public AGameModeBase
+class ADPGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	ADodgeOfProjectilesGameMode();
+	ADPGameMode();
 };
 
 

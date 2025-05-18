@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DodgeOfProjectiles/Characters/DOPBaseCharacter.h"
+#include "DodgeOfProjectiles/Characters/DPBaseCharacter.h"
 #include "Logging/LogMacros.h"
-#include "DodgeOfProjectilesCharacter.generated.h"
+#include "DPCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -16,7 +16,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class ADodgeOfProjectilesCharacter : public ADOPBaseCharacter
+class ADPCharacter : public ADPBaseCharacter
 {
 	GENERATED_BODY()
 
@@ -45,7 +45,7 @@ class ADodgeOfProjectilesCharacter : public ADOPBaseCharacter
 	UInputAction* LookAction;
 
 public:
-	ADodgeOfProjectilesCharacter(const FObjectInitializer& ObjectInitializer);
+	ADPCharacter(const FObjectInitializer& ObjectInitializer);
 	
 
 protected:

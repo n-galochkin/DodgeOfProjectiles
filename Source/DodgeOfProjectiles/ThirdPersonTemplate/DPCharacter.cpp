@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "DodgeOfProjectilesCharacter.h"
+#include "DPCharacter.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -16,7 +16,7 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 //////////////////////////////////////////////////////////////////////////
 // ADodgeOfProjectilesCharacter
 
-ADodgeOfProjectilesCharacter::ADodgeOfProjectilesCharacter(const FObjectInitializer& ObjectInitializer)
+ADPCharacter::ADPCharacter(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
 {
 	// Set size for collision capsule
@@ -58,7 +58,7 @@ ADodgeOfProjectilesCharacter::ADodgeOfProjectilesCharacter(const FObjectInitiali
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ADodgeOfProjectilesCharacter::NotifyControllerChanged()
+void ADPCharacter::NotifyControllerChanged()
 {
 	Super::NotifyControllerChanged();
 
@@ -72,7 +72,7 @@ void ADodgeOfProjectilesCharacter::NotifyControllerChanged()
 	}
 }
 
-void ADodgeOfProjectilesCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ADPCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
@@ -82,10 +82,10 @@ void ADodgeOfProjectilesCharacter::SetupPlayerInputComponent(UInputComponent* Pl
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADodgeOfProjectilesCharacter::Move);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADPCharacter::Move);
 
 		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADodgeOfProjectilesCharacter::Look);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADPCharacter::Look);
 	}
 	else
 	{
@@ -93,7 +93,7 @@ void ADodgeOfProjectilesCharacter::SetupPlayerInputComponent(UInputComponent* Pl
 	}
 }
 
-void ADodgeOfProjectilesCharacter::Move(const FInputActionValue& Value)
+void ADPCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
@@ -116,7 +116,7 @@ void ADodgeOfProjectilesCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
-void ADodgeOfProjectilesCharacter::Look(const FInputActionValue& Value)
+void ADPCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();

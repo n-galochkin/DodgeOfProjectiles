@@ -1,13 +1,13 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "DOPBaseCharacter.h"
+#include "DPBaseCharacter.h"
 
 #include "AbilitySystemComponent.h"
-#include "DodgeOfProjectiles/AbilitySystem/Attributes/DOPAttributeSet.h"
+#include "DodgeOfProjectiles/AbilitySystem/Attributes/DPAttributeSet.h"
 #include "DodgeOfProjectiles/FirstPersonTemplate/FirstPersonWeaponComponent.h"
 
-ADOPBaseCharacter::ADOPBaseCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+ADPBaseCharacter::ADPBaseCharacter(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	SetNetUpdateFrequency(100.0f);
 
@@ -16,21 +16,21 @@ ADOPBaseCharacter::ADOPBaseCharacter(const FObjectInitializer& ObjectInitializer
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 }
 
-void ADOPBaseCharacter::PreInitializeComponents()
+void ADPBaseCharacter::PreInitializeComponents()
 {
 	Super::PreInitializeComponents();
 
-	AbilitySystemComponent->AddAttributeSetSubobject(NewObject<UDOPAttributeSet>(this));
+	AbilitySystemComponent->AddAttributeSetSubobject(NewObject<UDPAttributeSet>(this));
 }
 
-void ADOPBaseCharacter::PostInitializeComponents()
+void ADPBaseCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
 
-void ADOPBaseCharacter::BeginPlay()
+void ADPBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -41,17 +41,17 @@ void ADOPBaseCharacter::BeginPlay()
 	}
 }
 
-void ADOPBaseCharacter::Tick(float DeltaSeconds)
+void ADPBaseCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 }
 
-void ADOPBaseCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
+void ADPBaseCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 }
 
-void ADOPBaseCharacter::PossessedBy(AController* NewController)
+void ADPBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 }

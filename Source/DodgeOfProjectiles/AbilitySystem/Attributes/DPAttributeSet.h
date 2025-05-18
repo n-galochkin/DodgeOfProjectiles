@@ -3,7 +3,7 @@
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
 
-#include "DOPAttributeSet.generated.h"
+#include "DPAttributeSet.generated.h"
 
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -14,16 +14,16 @@
 
 
 UCLASS()
-class UDOPAttributeSet : public UAttributeSet
+class UDPAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
 public:
 
-	UDOPAttributeSet();
-	ATTRIBUTE_ACCESSORS(UDOPAttributeSet, Health);
-	ATTRIBUTE_ACCESSORS(UDOPAttributeSet, MaxHealth);
-	ATTRIBUTE_ACCESSORS(UDOPAttributeSet, Damage);
+	UDPAttributeSet();
+	ATTRIBUTE_ACCESSORS(UDPAttributeSet, Health);
+	ATTRIBUTE_ACCESSORS(UDPAttributeSet, MaxHealth);
+	ATTRIBUTE_ACCESSORS(UDPAttributeSet, Damage);
 
 protected:
 
