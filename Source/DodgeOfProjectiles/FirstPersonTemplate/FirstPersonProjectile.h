@@ -9,7 +9,7 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 
-UCLASS(config=Game)
+UCLASS(config=Game, Blueprintable, BlueprintType)
 class AFirstPersonProjectile : public AActor
 {
 	GENERATED_BODY()
