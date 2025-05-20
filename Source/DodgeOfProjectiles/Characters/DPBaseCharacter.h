@@ -24,14 +24,17 @@ public:
 	virtual void PreInitializeComponents() override;
 	virtual void PostInitializeComponents() override;
 	virtual void PossessedBy(AController* NewController) override;
-	
+
 protected:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TObjectPtr<class UAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Gameplay)
+	UPROPERTY(EditDefaultsOnly, Category = Gameplay)
+	TSubclassOf<class UGameplayAbility> DodgeAbilityClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = Gameplay)
 	TSubclassOf<class UFirstPersonWeaponComponent> WeaponClass;
-	
+
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TObjectPtr<class UFirstPersonWeaponComponent> WeaponComponent;
 };

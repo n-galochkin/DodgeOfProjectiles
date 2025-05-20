@@ -39,6 +39,13 @@ void ADPBaseCharacter::BeginPlay()
 		WeaponComponent = Cast<UFirstPersonWeaponComponent>(AddComponentByClass(WeaponClass, true, {}, false));
 		WeaponComponent->AttachWeapon(this);
 	}
+
+	if (DodgeAbilityClass)
+	{
+		FGameplayAbilitySpec DodgeAbilitySpec(DodgeAbilityClass, 1, INDEX_NONE, this);
+		AbilitySystemComponent->GiveAbility(DodgeAbilitySpec);
+	}
+
 }
 
 void ADPBaseCharacter::Tick(float DeltaSeconds)

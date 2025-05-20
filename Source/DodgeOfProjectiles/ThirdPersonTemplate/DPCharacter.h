@@ -43,6 +43,10 @@ class ADPCharacter : public ADPBaseCharacter
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* DodgeAction;
+
 
 public:
 	ADPCharacter(const FObjectInitializer& ObjectInitializer);
@@ -55,7 +59,9 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
+	void ActivateDodge();
+
 
 protected:
 
