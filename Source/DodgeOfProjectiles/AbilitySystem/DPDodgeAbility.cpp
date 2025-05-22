@@ -18,13 +18,13 @@ void UDPDodgeAbility::ActivateAbility(
 
 	if (ActorInfo && ActorInfo->AvatarActor.IsValid())
 	{
-		ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
+		const ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
 		if (Character && DodgeMontage)
 		{
-			UAnimInstance* AnimInstance = Character->GetMesh()->GetAnimInstance();
-			if (AnimInstance)
+			if (UAnimInstance* AnimInstance = Character->GetMesh()->GetAnimInstance())
 			{
 				AnimInstance->Montage_Play(DodgeMontage);
+				
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "DPCharacter.h"
+#include "DPPlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
 #include "Engine/LocalPlayer.h"
@@ -15,7 +15,7 @@
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-ADPCharacter::ADPCharacter(const FObjectInitializer& ObjectInitializer)
+ADPPlayerCharacter::ADPPlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	// Set size for collision capsule
@@ -57,7 +57,7 @@ ADPCharacter::ADPCharacter(const FObjectInitializer& ObjectInitializer)
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ADPCharacter::NotifyControllerChanged()
+void ADPPlayerCharacter::NotifyControllerChanged()
 {
 	Super::NotifyControllerChanged();
 
@@ -71,16 +71,16 @@ void ADPCharacter::NotifyControllerChanged()
 	}
 }
 
-void ADPCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ADPPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADPCharacter::Move);
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADPCharacter::Look);
-		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Started, this, &ADPCharacter::ActivateDodge);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADPPlayerCharacter::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADPPlayerCharacter::Look);
+		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Started, this, &ADPPlayerCharacter::ActivateDodge);
 	}
 	else
 	{
@@ -88,7 +88,7 @@ void ADPCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	}
 }
 
-void ADPCharacter::Move(const FInputActionValue& Value)
+void ADPPlayerCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
@@ -111,7 +111,7 @@ void ADPCharacter::Move(const FInputActionValue& Value)
 	}
 }
 
-void ADPCharacter::Look(const FInputActionValue& Value)
+void ADPPlayerCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
@@ -124,7 +124,7 @@ void ADPCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void ADPCharacter::ActivateDodge()
+void ADPPlayerCharacter::ActivateDodge()
 {
 	if (FGameplayAbilitySpec* Spec = AbilitySystemComponent->FindAbilitySpecFromClass(DodgeAbilityClass))
 	{

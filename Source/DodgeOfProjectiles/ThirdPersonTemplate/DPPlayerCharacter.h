@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "DodgeOfProjectiles/Characters/DPBaseCharacter.h"
 #include "Logging/LogMacros.h"
-#include "DPCharacter.generated.h"
+#include "DPPlayerCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -16,7 +16,7 @@ struct FInputActionValue;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
-class ADPCharacter : public ADPBaseCharacter
+class ADPPlayerCharacter : public ADPBaseCharacter
 {
 	GENERATED_BODY()
 
@@ -49,7 +49,7 @@ class ADPCharacter : public ADPBaseCharacter
 
 
 public:
-	ADPCharacter(const FObjectInitializer& ObjectInitializer);
+	ADPPlayerCharacter(const FObjectInitializer& ObjectInitializer);
 	
 
 protected:
