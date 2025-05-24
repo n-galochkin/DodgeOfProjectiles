@@ -35,4 +35,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category="Shooting")
 	float CooldownRandomDeviation = 0.1f;
+
+private:
+	static bool IsLookingForTarget(const AActor* TargetActor, const APawn* OwningPawn);
+
+	static bool IsTargetVisible(const AActor* TargetActor, const APawn* OwningPawn);
 };

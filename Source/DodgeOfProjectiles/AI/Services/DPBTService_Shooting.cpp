@@ -5,6 +5,7 @@
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 #include "AIController.h"
 #include "DodgeOfProjectiles/FirstPersonTemplate/FirstPersonWeaponComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 UDPBTService_Shooting::UDPBTService_Shooting(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -40,15 +41,10 @@ void UDPBTService_Shooting::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 
 	if (MyMemory->Timer >= MyMemory->Cooldown)
 	{
-		// Проверяем направление
-		const FVector PawnLocation = OwningPawn->GetActorLocation();
-		const FVector PawnForward = OwningPawn->GetActorForwardVector();
-		const FVector ToTarget = (TargetActor->GetActorLocation() - PawnLocation).GetSafeNormal();
+		const bool bIsLookingForTarget = IsLookingForTarget(TargetActor, OwningPawn);
+		const bool bIsTargetVisible = IsTargetVisible(TargetActor, OwningPawn);
 
-		const float DotProduct = FVector::DotProduct(PawnForward, ToTarget);
-		const float CosThreshold = FMath::Cos(FMath::DegreesToRadians(20.0f));
-
-		if (DotProduct > CosThreshold)
+		if (bIsLookingForTarget && bIsTargetVisible)
 		{
 			const auto WeaponComponent = OwningPawn->FindComponentByClass<UFirstPersonWeaponComponent>();
 			if (ensureMsgf(WeaponComponent != nullptr, TEXT("No weapon component found for %s"), *OwningPawn->GetName()))
@@ -60,6 +56,37 @@ void UDPBTService_Shooting::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 			MyMemory->Cooldown = FMath::FRandRange(BaseCooldown - CooldownRandomDeviation, BaseCooldown + CooldownRandomDeviation); // Новый кулдаун с отклонением
 		}
 	}
+}
+
+bool UDPBTService_Shooting::IsLookingForTarget(const AActor* TargetActor, const APawn* OwningPawn)
+{
+	const FVector PawnLocation = OwningPawn->GetActorLocation();
+	const FVector PawnForward = OwningPawn->GetActorForwardVector();
+	const FVector ToTarget = (TargetActor->GetActorLocation() - PawnLocation).GetSafeNormal();
+
+	const float DotProduct = FVector::DotProduct(PawnForward, ToTarget);
+	const float CosThreshold = FMath::Cos(FMath::DegreesToRadians(20.0f));
+
+	return DotProduct > CosThreshold;
+}
+
+bool UDPBTService_Shooting::IsTargetVisible(const AActor* TargetActor, const APawn* OwningPawn)
+{
+	FHitResult HitResult;
+	const FVector StartLocation = OwningPawn->GetActorLocation() + FVector(0, 0, 70.0f);
+	const FVector EndLocation = TargetActor->GetActorLocation();
+
+	const bool bGotHit = UKismetSystemLibrary::LineTraceSingle(
+		OwningPawn,
+		StartLocation,
+		EndLocation,
+		{UEngineTypes::ConvertToTraceType(ECC_PhysicsBody)},
+		true,
+		{const_cast<APawn*>(OwningPawn)},
+		EDrawDebugTrace::None,
+		HitResult, true);
+
+	return bGotHit && HitResult.GetActor() == TargetActor;
 }
 
 FString UDPBTService_Shooting::GetStaticDescription() const
