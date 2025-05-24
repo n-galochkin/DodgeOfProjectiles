@@ -53,7 +53,7 @@ void UDPBTService_Shooting::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 			}
 
 			MyMemory->Timer = 0.f;
-			MyMemory->Cooldown = FMath::FRandRange(BaseCooldown - CooldownRandomDeviation, BaseCooldown + CooldownRandomDeviation); // Новый кулдаун с отклонением
+			MyMemory->Cooldown = FMath::FRandRange(BaseCooldown - CooldownRandomDeviation, BaseCooldown + CooldownRandomDeviation);
 		}
 	}
 }
