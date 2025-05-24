@@ -17,6 +17,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Behavior")
@@ -28,8 +29,7 @@ protected:
 private:
 	UFUNCTION()
 	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
-	
-	void OnLostTargetTimerEnded();
 
-	FTimerHandle LostTargetTimerHandle;
+	UFUNCTION()
+	void OnTargetPerceptionForgotten(AActor* Actor);
 };

@@ -58,22 +58,22 @@ void UDPBTService_Shooting::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 	}
 }
 
-bool UDPBTService_Shooting::IsLookingForTarget(const AActor* TargetActor, const APawn* OwningPawn)
+bool UDPBTService_Shooting::IsLookingForTarget(const AActor* TargetActor, const APawn* OwningPawn) const
 {
 	const FVector PawnLocation = OwningPawn->GetActorLocation();
 	const FVector PawnForward = OwningPawn->GetActorForwardVector();
 	const FVector ToTarget = (TargetActor->GetActorLocation() - PawnLocation).GetSafeNormal();
 
 	const float DotProduct = FVector::DotProduct(PawnForward, ToTarget);
-	const float CosThreshold = FMath::Cos(FMath::DegreesToRadians(20.0f));
+	const float CosThreshold = FMath::Cos(FMath::DegreesToRadians(AcceptableShootingRadius));
 
 	return DotProduct > CosThreshold;
 }
 
-bool UDPBTService_Shooting::IsTargetVisible(const AActor* TargetActor, const APawn* OwningPawn)
+bool UDPBTService_Shooting::IsTargetVisible(const AActor* TargetActor, const APawn* OwningPawn) const
 {
 	FHitResult HitResult;
-	const FVector StartLocation = OwningPawn->GetActorLocation() + FVector(0, 0, 70.0f);
+	const FVector StartLocation = OwningPawn->GetActorLocation() + TargetVisibilityCheckingOffset;
 	const FVector EndLocation = TargetActor->GetActorLocation();
 
 	const bool bGotHit = UKismetSystemLibrary::LineTraceSingle(

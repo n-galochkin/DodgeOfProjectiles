@@ -36,8 +36,15 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Shooting")
 	float CooldownRandomDeviation = 0.1f;
 
-private:
-	static bool IsLookingForTarget(const AActor* TargetActor, const APawn* OwningPawn);
+	UPROPERTY(EditAnywhere, Category="Shooting")
+	float AcceptableShootingRadius = 20.f;
 
-	static bool IsTargetVisible(const AActor* TargetActor, const APawn* OwningPawn);
+	UPROPERTY(EditAnywhere, Category="Shooting")
+	FVector TargetVisibilityCheckingOffset = FVector(0.f, 0.f, 70.f);
+
+
+private:
+	bool IsLookingForTarget(const AActor* TargetActor, const APawn* OwningPawn) const;
+
+	bool IsTargetVisible(const AActor* TargetActor, const APawn* OwningPawn) const;
 };
