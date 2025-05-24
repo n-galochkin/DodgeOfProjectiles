@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Perception/AIPerceptionTypes.h"
 #include "Runtime/AIModule/Classes/AIController.h"
 #include "DPAIController.generated.h"
 
@@ -18,6 +19,17 @@ protected:
 	virtual void BeginPlay() override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "AI" )
+	UPROPERTY(EditDefaultsOnly, Category = "Behavior")
 	TObjectPtr<UBehaviorTree> BehaviorTree;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Behavior")
+	FName BlackboardKey_Target;
+
+private:
+	UFUNCTION()
+	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+	
+	void OnLostTargetTimerEnded();
+
+	FTimerHandle LostTargetTimerHandle;
 };
